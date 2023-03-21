@@ -1,0 +1,61 @@
+
+/* #################################
+ *              IMAGEN
+ * ################################# */
+.landingImg {
+    position: relative;
+    background-image: url('../imgs/People1.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 35em;
+}
+
+/* #################################
+ *           LATEST NEWS
+ * ################################# */
+.separador {
+    display: flex;
+    justify-content: center;
+    background-color: #69306D;
+    padding: 0.2em;
+}
+.temas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 25em;
+}
+.temas div {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.tema1 {
+    position: relative;
+    background-image: url('../imgs/Sports1.jpg');
+}
+.tema2 {
+    position: relative;
+    background-image: url('../imgs/Politician1.jpg');
+}
+.landingImg div, .tema1 .opacity, .tema2 .opacity {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #69306D;
+    opacity: 50%;
+}
+.texto {
+    font-family: 'Homenaje', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 70px;
+}

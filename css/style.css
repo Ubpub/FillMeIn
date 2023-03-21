@@ -1,0 +1,74 @@
+body {
+    background-color: #432745;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    margin: 0;
+}
+h1 {
+    font-family: 'Oooh Baby', cursive;
+}
+
+/* #######################################
+ *                 HEADER
+ * ####################################### */
+header {
+    background-color: #69306D;
+    display: grid;
+    grid-template-columns: 150px 5fr 1fr;
+    padding: 1px;
+    height: 5em;
+    padding-left: 4em;
+    padding-right: 5em;
+}
+header div {
+    margin-left: 1em;
+}
+header h1 {
+    cursor: pointer;
+}
+.title {
+    width: 8em;
+}
+.login {
+    display: flex;
+    justify-content: end;
+}
+.element, .element div {
+    display: flex;
+    align-items: center;
+}
+.menu div {
+    justify-content: center;
+    height: 95%;
+    width: 5em;
+    border-bottom: 3px solid #69306D;
+    cursor: pointer;
+}
+.menu div:hover {
+    height: 95%;
+    border-bottom: 3px solid yellow;
+}
+.login_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    width: 5em;
+    border-bottom: 3px solid #69306D;
+    cursor: pointer;
+}
+.login_link:hover {
+    border-bottom: 3px solid yellow;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+
+/* #######################################
+ *                 FOOTER
+ * ####################################### */
+footer {
+    background-color: #69306D;
+    height: 10em;
+}
