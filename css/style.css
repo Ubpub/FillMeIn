@@ -47,6 +47,8 @@ header h1 {
 .menu div:hover {
     height: 95%;
     border-bottom: 3px solid yellow;
+    /* transform: scale(1.2);
+    transition: 0.5s; */
 }
 .login_link {
     display: flex;
