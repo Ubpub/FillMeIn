@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FillMeIn</title>
+
+    <!-- Icono -->
+    <link rel="icon" href="../imgs/icons/F.png">
+
+    <!-- Iconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../css/home.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -13,6 +21,49 @@
     <!-- CONTENIDO -->
     <div class="contenido">
 
+        <!-- Búsqueda -->
+        <div id="busqueda">
+            <div><input type="text" name="search" id="search" placeholder="Look for users..."></div>
+            <div class="filter">All users</div>
+            <div class="filter start">Following</div>
+            <div></div>
+        </div>
+        <!-- Fin búsqueda -->
+
+        <!-- Principal -->
+        <div id="principal">
+
+            <!-- Entradas -->
+            <div class="p-element entries">
+                <div class="add-entry">
+
+                    <!-- Si está loggeado -->
+                    <div class="logged">
+                        <div class="user-image"><img src="../imgs/Gray.png" alt="User image" width="70" height="70"></div>
+                        <div class="textarea"><textarea name="entry" id="user-entry" placeholder="What is on your mind today?" maxlength="1000"></textarea></div>
+                        <div class="upload-div">
+                            <div class="upload">Upload entry</div>
+                        </div>
+                    </div>
+
+                    <!-- Si NO está loggeado -->
+                    <!-- <div class="not-logged">
+                        <div>Log In to write an entry</div>
+                    </div> -->
+                </div>
+            </div>
+            <!-- Fin entradas -->
+
+            <!-- Menú izquierda -->
+            <div class="p-element left-menu">
+                <div><i class="bi bi-house-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Home</div>
+                <div><i class="bi bi-gear-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Settings</div>
+                <div><i class="bi bi-person-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</div>
+            </div>
+            <!-- Fin menú izquierda -->
+
+        </div>
+        <!-- Fin principal -->
 
     </div>
     <!-- FIN CONTENIDO -->

@@ -1,0 +1,136 @@
+.contenido {
+    margin: 1em 5em 1em 5em;
+}
+#busqueda {
+    padding: 1em 0 1em 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 3fr;
+}
+#busqueda input {
+    border-radius: 5em;
+    height: 3em;
+    width: calc(20em + 1vw);
+    border: 1px solid white;
+    padding-left: 3em;
+    font-family: 'Inter', sans-serif;
+}
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.filter:hover {
+    color: yellow;
+}
+
+/* ######################################
+ *               PRINCIPAL
+ * ###################################### */
+#principal {
+    margin-top: 2em;
+    /* display: grid;
+    grid-template-columns: 3fr 1fr; */
+}
+#principal .p-element {
+    float: left;
+    height: 20em;
+    margin-bottom: 2em;
+}
+.entries {
+    width: 80%;
+}
+.left-menu {
+    width: 15%;
+    padding: 1em;
+    padding-left: 2em;
+    border-left: 2px solid white;
+}
+.left-menu div {
+    height: 2em;
+    cursor: pointer;
+}
+.left-menu div:hover {
+    color: yellow;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+/* ######################################
+ *               ENTRADAS
+ * ###################################### */
+
+ /* ######################################
+ *               LOGEADO
+ * ###################################### */
+.add-entry {
+    border-bottom: 1px solid white;
+    width: 95%;
+    height: auto;
+}
+.add-entry textarea {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 99%;
+    height: 7em;
+    color: white;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+.logged {
+    display: grid;
+    grid-template-columns: 0.5fr 3.5fr 1fr;
+}
+.logged img {
+    border-radius: 50%;
+}
+.user-image {
+    display: flex;
+    justify-content: center;
+    height: 7em;
+}
+.textarea {
+    width: 99%;
+}
+.upload-div {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 1em;
+}
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: small;
+    border-radius: 5em;
+    width: 80%;
+    height: 2em;
+    background-color: white;
+    color: #69306D;
+    cursor: pointer;
+}
+/* ######################################
+ *               NO LOGEADO
+ * ###################################### */
+.not-logged {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7em;
+}
+.not-logged div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 5em;
+    width: 30%;
+    height: 2em;
+    background-color: white;
+    color: #69306D;
+    cursor: pointer;
+}
