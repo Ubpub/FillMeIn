@@ -10,8 +10,10 @@ getElements(footer_view, footer_id, false);
 function checkLocalStorage() {
     let header = "nulo";
     if (localStorage.getItem('webToken') != null) {
-        header = "../views/included-views/headerlog.html";
+        // Si está logeado
+        header = "../views/included-views/header-loged.html";
     } else {
+        // Si no está logeado
         header = "../views/included-views/header.html";
     }
     return header;

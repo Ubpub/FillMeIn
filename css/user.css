@@ -1,0 +1,111 @@
+.contenido {
+    margin: 1.5em 5em 1.5em 5em;
+}
+.back {
+    font-weight: bold;
+}
+.back a:hover {
+    color: yellow;
+}
+
+/* ##############################
+ *            PRINCIPAL
+ * ############################## */
+#principal {
+    margin-top: 2em;
+}
+#principal .p-element {
+    float: left;
+    height: 20em;
+    margin-bottom: 2em;
+}
+.left-info {
+    display: flex;
+    justify-content: center;
+
+    width: 80%;
+}
+.right-menu {
+    width: 15%;
+    padding: 1em;
+    padding-left: 2em;
+    border-left: 2px solid white;
+}
+.right-menu div {
+    height: 2em;
+    cursor: pointer;
+}
+.right-menu div:hover {
+    color: yellow;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.p-contenido {
+    width: 60em;
+}
+
+/* ##############################
+ *             BANNER
+ * ############################## */
+#banner {
+    position: relative;
+    width: 95%;
+    height: 12em;
+    background-color: lightgray;
+}
+#user-photo {
+    position: absolute;
+    top: 6em;
+    left: 3em;
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    background-color: rgb(238, 238, 238);
+}
+/* ##############################
+ *              INFO
+ * ############################## */
+.edit-div {
+    display: flex;
+    justify-content: end;
+    margin-top: 0.5em;
+    margin-bottom: 3em;
+    width: 95%;
+}
+#edit-bt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10em;
+    height: 2.5em;
+    border-radius: 50em;
+    border: 1px solid white;
+    cursor: pointer;
+}
+#edit-bt:hover {
+    font-weight: bold;
+    color: #69306D;
+    border: 1px solid white;
+    background-color: white;
+}
+
+/* ##############################
+ *           USER INFO
+ * ############################## */
+.user-info {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    width: 95%;
+}
+.bold {
+    font-weight: bold;
+}
+.small {
+    font-size: small;
+}
+.username {
+    opacity: 50%;
+}
+.follow-info div {
+    text-align: center;
+}

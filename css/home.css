@@ -41,17 +41,17 @@
 .entries {
     width: 80%;
 }
-.left-menu {
+.right-menu {
     width: 15%;
     padding: 1em;
     padding-left: 2em;
     border-left: 2px solid white;
 }
-.left-menu div {
+.right-menu div {
     height: 2em;
     cursor: pointer;
 }
-.left-menu div:hover {
+.right-menu div:hover {
     color: yellow;
     transform: scale(1.1);
     transition: 0.5s;

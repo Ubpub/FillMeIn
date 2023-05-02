@@ -68,6 +68,33 @@ a {
 }
 
 /* #######################################
+ *              HEADER LOGED
+ * ####################################### */
+.user {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.user div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user img {
+    border-radius: 50%;
+    cursor: pointer;
+}
+.user a:hover img {
+    border: 3px solid yellow;
+}
+.user i {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+.user i:hover {
+    color: yellow;
+}
+
+/* #######################################
  *                 FOOTER
  * ####################################### */
 footer {

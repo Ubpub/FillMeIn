@@ -89,3 +89,19 @@
     background-color: white;
     cursor: pointer;
 }
+.pass-div, .r-pass-div {
+    position: relative;
+}
+#user-pass, #user-pass-repeat {
+    box-sizing: border-box;
+    color: #191919;
+    padding: 15px 15px 15px 35px;
+    width: 100%;
+}
+.pass-div i, .r-pass-div i {
+    position: absolute;
+    left: 90%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
