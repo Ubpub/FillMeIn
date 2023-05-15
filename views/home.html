@@ -38,8 +38,8 @@
                 <div class="add-entry">
 
                     <!-- Si está loggeado -->
-                    <div class="logged">
-                        <div class="user-image"><img src="../imgs/Gray.png" alt="User image" width="70" height="70"></div>
+                    <div class="logged" style="display: none;">
+                        <div class="user-image"><img src="../imgs/Gray.png" id="user-image-element" alt="User image" width="70" height="70"></div>
                         <div class="textarea"><textarea name="entry" id="user-entry" placeholder="What is on your mind today?" maxlength="1000"></textarea></div>
                         <div class="upload-div">
                             <div class="upload">Upload entry</div>
@@ -47,10 +47,24 @@
                     </div>
 
                     <!-- Si NO está loggeado -->
-                    <!-- <div class="not-logged">
+                    <div class="not-logged">
                         <div>Log In to write an entry</div>
+                    </div>
+                </div>
+
+                <!-- Contenedor entradas -->
+                <div class="entry-container">
+                    <!-- <div class="entry-div">
+                        <div class="user-image"><img src="../imgs/Gray.png" id="user-image-element" alt="User image" width="70" height="70"></div>
+                        <div class="entry-content">
+                            <div class="entry-user">User</div>
+                            <div class="entry-username">@username</div>
+                            <div class="entry-text">Un texto que me dio la gana de poner</div>
+                        </div>
                     </div> -->
                 </div>
+                <!-- Fin contenedor entradas -->
+
             </div>
             <!-- Fin entradas -->
 
@@ -72,12 +86,27 @@
     <div class="footer"></div>
 
     <script src="../js/addElements.js"></script>
+    <script src="../js/home.js"></script>
     <script>
         let link = document.querySelector('.profile-link');
         if (localStorage.getItem('webToken') != null) {
             link.href = 'user.html';
         } else {
             link.href = 'login.html';
+        }
+
+        if (localStorage.getItem('webToken')) {
+            document.querySelector('.logged').style.display = 'grid';
+            document.querySelector('.not-logged').style.display = 'none';
+
+            let user_photo = document.querySelector('#user-image-element');
+            if (localStorage.getItem('image') == 'Gray') user_photo.src = '../imgs/Gray.png';
+            else {
+                user_photo.src = `${ localStorage.getItem('image') }`;
+            }
+        } else {
+            document.querySelector('.logged').style.display = 'none';
+            document.querySelector('.not-logged').style.display = 'flex';
         }
     </script>
 </body>
