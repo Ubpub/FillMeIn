@@ -1,0 +1,74 @@
+/* --- PARTE DE ARRIBA --- */
+.contenido {
+    height: 60em;
+}
+#save-bt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10em;
+    height: 2.5em;
+    border-radius: 50em;
+    font-weight: bold;
+    color: #69306D;
+    border: 1px solid white;
+    background-color: white;
+    cursor: pointer;
+}
+#photo-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 17em;
+    left: 3em;
+    width: 10em;
+    height: 10em;
+    width: 10em;
+    height: 2.5em;
+    border-radius: 50em;
+    border: 1px solid white;
+    cursor: pointer;
+}
+#photo-btn:hover {
+    font-weight: bold;
+    color: #69306D;
+    background-color: white;
+}
+
+/* --- CAMPOS A EDITAR --- */
+.edit-fields {
+    height: fit-content;
+    padding-top: 70px;
+    margin-right: 2%;
+}
+.edit-field-item {
+    border-bottom: 1px solid white;
+    padding: 1em 0 1em 0;
+}
+.edit-field-item input  {
+    width: 99%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+#username-input {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.textarea textarea {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 99%;
+    height: 5em;
+    color: white;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+.textarea textarea::placeholder, .edit-field-item input::placeholder {
+    color: white;
+}

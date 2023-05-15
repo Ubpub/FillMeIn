@@ -24,7 +24,7 @@
     <!-- CONTENIDO -->
     <div class="contenido">
 
-        <div class="back"><a href=""><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;&nbsp;User</a></div>
+        <div class="back"><a href="home.html"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;&nbsp;User</a></div>
 
         <!-- Div principal -->
         <div id="principal">
@@ -44,16 +44,16 @@
 
                     <div class="user-info">
                         <div>
-                            <div class="bold">User</div>
-                            <div class="small username">@username</div>
+                            <div class="bold user-profile"></div>
+                            <div class="small username"></div>
                         </div>
                         <div class="follow-info">
                             <div class="bold">Following</div>
-                            <div class="small">0</div>
+                            <div class="small following"></div>
                         </div>
                         <div class="follow-info">
                             <div class="bold">Followers</div>
-                            <div class="small">0</div>
+                            <div class="small followers"></div>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
             <div class="p-element right-menu">
                 <a href="home.html"><div><i class="bi bi-house-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Home</div></a>
                 <div><i class="bi bi-gear-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Settings</div>
-                <div><i class="bi bi-person-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</div>
+                <a href="home.html" class="profile-link"><div><i class="bi bi-person-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</div></a>
             </div>
             <!-- Fin menú derecha -->
 
@@ -78,5 +78,14 @@
     <div class="footer"></div>
 
     <script src="../js/addElements.js"></script>
+    <script src="../js/user.js"></script>
+    <script>
+        let link = document.querySelector('.profile-link');
+        if (localStorage.getItem('webToken') != null) {
+            link.href = 'user.html';
+        } else {
+            link.href = 'login.html';
+        }
+    </script>
 </body>
 </html>

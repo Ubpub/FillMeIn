@@ -22,7 +22,6 @@
 .left-info {
     display: flex;
     justify-content: center;
-
     width: 80%;
 }
 .right-menu {
@@ -52,6 +51,9 @@
     width: 95%;
     height: 12em;
     background-color: lightgray;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 #user-photo {
     position: absolute;
@@ -61,6 +63,9 @@
     height: 10em;
     border-radius: 50%;
     background-color: rgb(238, 238, 238);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 /* ##############################
  *              INFO

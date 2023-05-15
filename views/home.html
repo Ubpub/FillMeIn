@@ -58,7 +58,7 @@
             <div class="p-element right-menu">
                 <a href="home.html"><div><i class="bi bi-house-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Home</div></a>
                 <div><i class="bi bi-gear-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Settings</div>
-                <div><i class="bi bi-person-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</div>
+                <a href="" class="profile-link"><div><i class="bi bi-person-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</div></a>
             </div>
             <!-- Fin menú derecha -->
 
@@ -72,5 +72,13 @@
     <div class="footer"></div>
 
     <script src="../js/addElements.js"></script>
+    <script>
+        let link = document.querySelector('.profile-link');
+        if (localStorage.getItem('webToken') != null) {
+            link.href = 'user.html';
+        } else {
+            link.href = 'login.html';
+        }
+    </script>
 </body>
 </html>
