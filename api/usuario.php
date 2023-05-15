@@ -29,7 +29,7 @@
                 $passHash = hash("sha512", $user->pass);
 
                 // Selecciona todos los usuarios que coincidan con el nombre de usuario pasado
-                $sqlUsername = "SELECT * FROM usuarios WHERE usernale = '{$user->username}'";
+                $sqlUsername = "SELECT * FROM usuarios WHERE username = '{$user->username}'";
 
                 // Ejecuta la consulta
                 $result = $con->query($sqlUsername);
@@ -41,7 +41,6 @@
                     $sql = "INSERT INTO usuarios (username, name, pass, email, birthday, followers, following,  professional, type)
                             VALUES ('{$user->username}', '{$user->name}', '$passHash', '{$user->email}',
                             '{$user->birthday}', '{$user->followers}', '{$user->following}', '{$user->professional}', '{$user->type}')";
-                
                 
                     $con->query($sql);
                     header("HTTP/1.1 201 Created");
@@ -67,7 +66,7 @@
                 $id = $_GET['id'];
                 $sql .= " AND id = '$id'";
             }
-            if (isset($_GET['user']) && !isset($_GET['pass'])) {
+            if (isset($_GET['username']) && !isset($_GET['pass'])) {
                 $username = $_GET['username'];
                 $sql .= " AND username = '$username'";
             } else if (isset($_GET['username']) && isset($_GET['pass'])) {
@@ -78,6 +77,7 @@
             }
 
             $result = $con->query($sql);
+
             if ($result->num_rows > 0) {
                 $users = $result->fetch_all(MYSQLI_ASSOC); // Obtiene lo usuarios
 

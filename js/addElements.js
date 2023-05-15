@@ -26,5 +26,29 @@ function getElements(view, id, isHeader) {
         .then( (response) => response.text())
         .then(data => {
             document.querySelector(id).innerHTML = data;
+
+            // Comprueba si es una cabecera o un footer
+            if (isHeader) {
+                if (localStorage.getItem('webToken') != null) {
+                    if (localStorage.getItem('image') == 'Gray') document.querySelector('.user-img').src = '../imgs/Gray.png';
+                    else {
+                        document.querySelector('.user-img').src = `${ localStorage.getItem('image') }`;
+                        // document.querySelector('.image-user-hd').style.borderRadius = "50%";
+                    }
+                    closeSession();
+                }
+            }
         });
+}
+
+function closeSession() {
+    if (header_view == '../views/included-views/header-loged.html') {
+        document.querySelector('.close-session').addEventListener('click', (e) => {
+            localStorage.removeItem('username');
+            localStorage.removeItem('webToken');
+            localStorage.removeItem('id');
+            localStorage.removeItem('image');
+            window.location.href = 'login.html';
+        });
+    }
 }

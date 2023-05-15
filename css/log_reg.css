@@ -9,7 +9,10 @@
     border-radius: 2em;
 }
 #login { height: 20em; }
-#register { height: 40em; }
+#register {
+    height: fit-content;
+    padding-bottom: 2em;
+}
 .registerDiv {
     padding: 1em;
     padding-top: 1.5em;
@@ -104,4 +107,9 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+}
+.red {
+    font-size: 0.8em;
+    text-align: center;
+    color: red;
 }

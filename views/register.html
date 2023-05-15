@@ -23,7 +23,7 @@
     <!-- CONTENIDO -->
     <div class="contenido">
 
-        <!-- LOGIN DIV -->
+        <!-- REGISTER DIV -->
         <div id="register">
             <div class="registerDiv">
                 <div class="r-i1">Already have an account?</div>
@@ -32,9 +32,13 @@
             <hr>
             <div class="input-div">
                 <div class="inp-item"><input type="text" name="username" id="username" placeholder="Username" maxlength="20"></div>
+                <span class="username-alert red" style="display: none;"></span>
                 <div class="inp-item"><input type="text" name="name" id="name" placeholder="Name" maxlength="25"></div>
+                <span class="name-alert red" style="display: none;"></span>
                 <div class="inp-item"><input type="email" name="email" id="user_mail" placeholder="Email" maxlength="50"></div>
-                <div class="inp-item"><input type="text" name="birthday" id="user_birth" placeholder="Birthday"></div>
+                <span class="mail-alert red" style="display: none;"></span>
+                <div class="inp-item"><input type="text" name="birthday" id="user_birth" placeholder="Birthday Ex: 1990/01/01"></div>
+                <span class="birth-alert red" style="display: none;"></span>
                 <div class="inp-item profess-select">
                     <div>Is this a professional account?</div>
                     <div class="p-selection">
@@ -43,14 +47,17 @@
                     </div>
                 </div>
                 <div class="inp-item professional"><input type="text" name="about" id="about" placeholder="What is this professional account about? Ex: Cars, Technology, etc." maxlength="30"></div>
+                <span class="about-alert red" style="display: none;"></span>
                 <div class="inp-item pass-div"><input type="password" name="password" id="user_pass" placeholder="Password" data-icon="pass-icon" maxlength="35"><i class="bi bi-eye-slash pass-icon" data-icon="pass-icon"></i></div>
+                <span class="password-alert red" style="display: none;"></span>
                 <div class="inp-item r-pass-div"><input type="password" name="password" id="pass_repeat" placeholder="Repeat password" data-icon="repeat-icon" maxlength="35"><i class="bi bi-eye-slash pass-icon" data-icon="repeat-icon"></i></div>
+                <span class="r-password-alert red" style="display: none;"></span>
                 <div class="inp-item">
                     <div id="register-bt">Sign In</div>
                 </div>
             </div>
         </div>
-        <!-- FIN LOGIN DIV -->
+        <!-- FIN REGISTER DIV -->
 
     </div>
     <!-- FIN CONTENIDO -->
