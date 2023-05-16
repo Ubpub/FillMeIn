@@ -58,6 +58,10 @@
     font-weight: bold;
     font-size: 1.2em;
 }
+.textarea {
+    border-bottom: 1px solid white;
+    padding: 1em 0 1em 0;
+}
 .textarea textarea {
     background-color: transparent;
     border: none;

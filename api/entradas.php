@@ -52,12 +52,15 @@
                 // Sentencia para insertar la entrada en la base de datos
                 $sql = "INSERT INTO entradas (user_id, content) VALUES ('{$entrada->user_id}', '{$entrada->content}')";
 
+                echo $sql;
                 $con->query($sql);
-                header("HTTP/1.1 201 OK");
+                header("HTTP/1.1 201 Created");
                 echo json_encode($entrada);
             } catch (mysqli_sql_exception $e) {
-                header("HTTP/1.1 404 Not Found");
+                header("HTTP/1.1 400 Bad Request");
             }
+        } else {
+            header("HTTP/1.1 404 Not Found");
         }
         exit;
     }

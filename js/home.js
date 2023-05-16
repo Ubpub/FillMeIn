@@ -6,7 +6,7 @@ function loadElement() {
     document.querySelector('.upload').addEventListener('click', () => {
         let text_content = document.querySelector('#user-entry').value;
         if (text_content != "") {
-            let entry = generateEntry(text_content);
+            let entry = generateEntry(filterSymbols(text_content));
             createEntry(entry);
         }
     })
@@ -78,6 +78,17 @@ function createEntry(entry) {
                     console.log("No se ha podido subir");
             }
         });
+}
+
+// Filtra los símbolos del texto para pasarlos a códigos HTML
+function filterSymbols(text) {
+    text = text.replace(/</g, "&lt;");
+    text = text.replace(/>/g, "&gt;");
+    text = text.replace(/`/g, "&#96;");
+    text = text.replace(/´/g, "&acute;");
+    text = text.replace(/'/g, "&apos;");
+    text = text.replace(/"/g, "&quot;");
+    return text
 }
 
 function generateEntry(content) {

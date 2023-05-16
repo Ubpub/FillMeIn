@@ -25,15 +25,23 @@ function loadElement() {
     getValues(username);
 
     document.querySelector('#save-bt').addEventListener('click', () => {
+        // Obtiene valores
         let username = document.querySelector('#username-input').value;
         let name = document.querySelector('#user-input').value;
-        let biography = document.querySelector('#biography-input').textContent;
-        if (biography = "" || biography == null) biography = null;
+        let biography = document.querySelector('#biography-input').value;
+        if (biography == "" || biography == null)
+            biography = null;
+        if (biography != null) {
+            biography = filterSymbols(biography);
+        }
         let email = document.querySelector('#email-input').value;
         let birthday = document.querySelector('#birthday-input').value;
-        if (birthday == "" || birthday == null) birthday = null;
+        if (birthday == "" || birthday == null)
+            birthday = null;
         let pass = document.querySelector('#password-input').value;
         let repeat_pass = document.querySelector('#repeat-password-input').value;
+
+        // Comprueba los valores
         let valid = checkValues(username, name, email, birthday, pass, repeat_pass);
 
         if (valid) {
@@ -67,8 +75,8 @@ function getValues(username) {
                     }
                     document.querySelector('#user-input').value = `${ data[0]['name'] }`;
                     document.querySelector('#username-input').value = `${ data[0]['username'] }`;
-                    if (data[0]['biography']) {
-                        document.querySelector('#biography-input').value = `${ data[0]['biography'] }`;
+                    if (data[0]['biography'] != null || data[0]['biography'] != "") {
+                        document.querySelector('#biography-input').value = `${ defilterSymbols(data[0]['biography']) }`;
                     }
                     document.querySelector('#birthday-input').value = `${ data[0]['birthday'] }`;
                     document.querySelector('#email-input').value = `${ data[0]['email'] }`;
@@ -182,6 +190,28 @@ function editUser(user) {
             console.log("Contraseña incorrecta");
         }
     })
+}
+
+// Filtra los símbolos del texto para pasarlos a códigos HTML
+function filterSymbols(text) {
+    text = text.replace(/</g, "&lt;");
+    text = text.replace(/>/g, "&gt;");
+    text = text.replace(/`/g, "&#96;");
+    text = text.replace(/´/g, "&acute;");
+    text = text.replace(/'/g, "&apos;");
+    text = text.replace(/"/g, "&quot;");
+    return text
+}
+
+// Revierte el filtro realizado para mostrar los valores (en un textarea puede ser)
+function defilterSymbols(text) {
+    text = text.replace(/&lt;/g, "<");
+    text = text.replace(/&gt;/g, ">");
+    text = text.replace(/&#96;/g, "`");
+    text = text.replace(/&acute;/g, "´");
+    text = text.replace(/&apos;/g, "'");
+    text = text.replace(/&quot;/g, '"');
+    return text
 }
 
 function createUserJSON(username, name, biography, email, birthday, pass) {
