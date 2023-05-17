@@ -187,3 +187,6 @@
     padding-bottom: 1.5em;
     font-size: 0.9em;
 }
+#user-image-element, .entry-user, .entry-username {
+    cursor: pointer;
+}

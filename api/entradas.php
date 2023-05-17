@@ -19,9 +19,9 @@
             }
 
             // Comprueba si se ha pasado la id de un usuario por parámetro y lo añade a la consulta
-            if (isset($_GET['user_id'])) {
-                $user_id = $_GET['user_id'];
-                $sql .= " AND user_id = '$user_id'";
+            if (isset($_GET['username'])) {
+                $username = $_GET['username'];
+                $sql .= " AND username = '$username'";
             }
 
             $sql .= " ORDER BY id DESC";
@@ -50,7 +50,7 @@
                 $entrada = json_decode($json);
 
                 // Sentencia para insertar la entrada en la base de datos
-                $sql = "INSERT INTO entradas (user_id, content) VALUES ('{$entrada->user_id}', '{$entrada->content}')";
+                $sql = "INSERT INTO entradas (username, content) VALUES ('{$entrada->username}', '{$entrada->content}')";
 
                 echo $sql;
                 $con->query($sql);

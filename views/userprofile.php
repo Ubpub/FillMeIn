@@ -4,7 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FillMeIn - [Usuario]</title>
+    <?php
+        // Obtener la URL del servidor
+        $componentes = parse_url($_SERVER['REQUEST_URI']);
+
+        // Obtener los parámetros pasados en la URL
+        parse_str($componentes['query'], $results);
+
+        // Almacenar en una variable la id obtenida de la URL
+        $id = $results['id'];
+
+        // Obtenemos los detalles con una petición a rutas.php pasando el id de ésta
+        $userJSON = file_get_contents("http://localhost/FillMeIn/api/usuario.php?id=$id");
+
+        // Pasamos el resultado obtenido a JSON
+        $user = json_decode($userJSON);
+
+        /* echo "<pre>";
+        print_r($user[0]);
+        echo "</pre>"; */
+    ?>
+    <title>FillMeIn - <?php echo $user[0]->username ?></title>
 
     <!-- Icono -->
     <link rel="icon" href="../imgs/icons/F.png">
@@ -13,7 +33,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="../css/userprofile.css">
 
 </head>
 <body>
@@ -33,30 +53,49 @@
                 <div class="p-contenido">
 
                     <!-- Banner -->
-                    <div id="banner">
-                        <div id="user-photo"></div>
+                    <?php 
+                        if ($user[0]->banner != null) {
+                            $user_banner = $user[0]->banner;
+                            ?>
+                                <div id="banner" style="background-image:url('<?php echo $user_banner; ?>')">
+                            <?php
+                        } else {
+                            echo "<div id='banner'>";
+                        }
+                    ?>
+                        <?php
+                            if ($user[0]->image != null) {
+                                $image = $user[0]->image;
+                                // echo "<div id='user-photo' style='background-image:url($image)'></div>";
+                                ?>
+                                    <div id="user-photo" style="background-image:url('<?php echo $image; ?>')"></div>;
+                                <?php
+                            } else {
+                                echo "<div id='user-photo'></div>";
+                            }
+                        ?>
                     </div>
                     <!-- Fin banner -->
 
-                    <!-- Botón de editar perfil -->
-                    <div class="edit-div">
-                        <div id="edit-bt">Edit profile</div>
+                    <!-- Botón de seguir usuario -->
+                    <div class="follow-div">
+                        <div id="follow-bt" class="follow"></div>
                     </div>
-                    <!-- Fin de botón de editar perfil -->
+                    <!-- Fin de botón de seguir usuario -->
 
                     <!-- Información de usuario -->
                     <div class="user-info">
                         <div>
-                            <div class="bold user-profile"></div>
-                            <div class="small username"></div>
+                            <div class="bold user-profile"><?php echo $user[0]->name ?></div>
+                            <div class="small username">@<?php echo $user[0]->username ?></div>
                         </div>
                         <div class="follow-info">
                             <div class="bold">Following</div>
-                            <div class="small following"></div>
+                            <div class="small following"><?php echo $user[0]->following ?></div>
                         </div>
                         <div class="follow-info">
                             <div class="bold">Followers</div>
-                            <div class="small followers"></div>
+                            <div class="small followers"><?php echo $user[0]->followers ?></div>
                         </div>
                     </div>
                     <!-- Fin de información de usuario -->
@@ -114,7 +153,7 @@
     <div class="footer"></div>
 
     <script src="../js/addElements.js"></script>
-    <script src="../js/user.js"></script>
+    <script src="../js/userprofile.js"></script>
     <script>
         let link = document.querySelector('.profile-link');
         if (localStorage.getItem('webToken') != null) {

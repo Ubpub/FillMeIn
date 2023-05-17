@@ -10,6 +10,53 @@
 }
 
 /* ##############################
+ *              INFO
+ * ############################## */
+ .follow-div {
+    display: flex;
+    justify-content: end;
+    margin-top: 0.5em;
+    margin-bottom: 3em;
+    width: 95%;
+}
+#follow-bt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10em;
+    height: 2.5em;
+    border-radius: 50em;
+    cursor: pointer;
+}
+.follow {
+    font-weight: bold;
+    color: #69306D;
+    border: 1px solid white;
+    background-color: white;
+}
+.follow::before {
+    content: "Follow";
+}
+.unfollow {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+}
+.unfollow::before {
+    content: "Following";
+}
+.unfollow:hover {
+    font-weight: bold;
+    color: #69306D;
+    border: 1px solid rgba(255, 255, 255, 0.74);
+    background-color: rgba(255, 255, 255, 0.74);
+}
+.unfollow:hover::before {
+    content: "Unfollow";
+}
+
+
+/* ##############################
  *            PRINCIPAL
  * ############################## */
 #principal {
@@ -68,32 +115,6 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-}
-/* ##############################
- *              INFO
- * ############################## */
-.edit-div {
-    display: flex;
-    justify-content: end;
-    margin-top: 0.5em;
-    margin-bottom: 3em;
-    width: 95%;
-}
-#edit-bt {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10em;
-    height: 2.5em;
-    border-radius: 50em;
-    border: 1px solid white;
-    cursor: pointer;
-}
-#edit-bt:hover {
-    font-weight: bold;
-    color: #69306D;
-    border: 1px solid white;
-    background-color: white;
 }
 
 /* ##############################
