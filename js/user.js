@@ -9,6 +9,8 @@ if (localStorage.getItem('webToken') != null) {
 }
 
 function loadElement() {
+    document.querySelector('.back').innerHTML = 
+    `<a href="home.html"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;&nbsp;${ localStorage.getItem('username') }</a>`
     // Comprueba si tiene foto de perfil
     let user_photo = document.querySelector('#user-photo');
     if (localStorage.getItem('image') == 'Gray') user_photo.style.backgroundImage = `url('../imgs/Gray.png')`;
@@ -42,6 +44,8 @@ function loadElement() {
             }
         })
     })
+
+    getUserInfo();
 }
 
 function getValues(username) {
@@ -68,8 +72,21 @@ function getValues(username) {
                 }
                 document.querySelector('.user-profile').textContent = `${ data[0]['name'] }`;
                 document.querySelector('.username').textContent = `@${ data[0]['username'] }`;
-                document.querySelector('.following').textContent = `${ data[0]['following'] }`;
-                document.querySelector('.followers').textContent = `${ data[0]['followers'] }`;
+                if (data[0]['professional'] == 1) {
+                    document.querySelector('.professional-account').textContent = data[0]['type'];
+                }
+
+                // Comprobar seguidores y seguidos
+                if (data['following'] != null && data[0]['following'].length > 0) {
+                    document.querySelector('.following').textContent = `${ data[0]['following'].length }`;
+                } else {
+                    document.querySelector('.following').textContent = `0`;
+                }
+                if (data['followers'] != null && data[0]['followers'].length > 0) {
+                    document.querySelector('.followers').textContent = `${ data[0]['followers'].length }`;
+                } else {
+                    document.querySelector('.followers').textContent = `0`;
+                }
 
                 getUserEntries(data[0]['username']);
             } else {
@@ -129,6 +146,44 @@ function getEntries(entry_content) {
                 </div>
             `;
             contenedor_entradas.append(entry);
+        } else {
+            console.log("ERROR");
+        }
+    })
+}
+
+function getUserInfo() {
+    // Busca el usuario que publicó la entrada para obtener sus datos
+    const url = (`http://localhost/FillMeIn/api/usuario.php?username=${ localStorage.getItem('username') }`);
+    fetch( url )
+    .then(response => {
+        switch (response.status) {
+            case 200:
+                return response.json();
+            case 404:
+                console.log('Hubo un error')
+            case 409:
+                console.log('Hubo un error')
+        }
+    })
+    .then( data => {
+        if (data[0]) {
+            let following = document.querySelector('.following');
+            let followers = document.querySelector('.followers');
+
+            if (data[0]['following'] != null && JSON.parse(data[0]['following']).length > 0) {
+                following.textContent = `${ JSON.parse(data[0]['following']).length }`
+            } else {
+                following.textContent = "0";
+            }
+
+            if (data[0]['followers'] != null && JSON.parse(data[0]['followers']).length > 0) {
+                followers.textContent = `${ JSON.parse(data[0]['followers']).length }`
+            } else {
+                followers.textContent = "0";
+            }
+
+            console.log(data[0]);
         } else {
             console.log("ERROR");
         }

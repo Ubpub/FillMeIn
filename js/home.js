@@ -1,4 +1,5 @@
 let contenedor_entradas = document.querySelector('.entry-container');
+let contenedor_usuarios = document.querySelector('#user-container');
 
 loadElement();
 
@@ -10,7 +11,8 @@ function loadElement() {
             createEntry(entry);
         }
     })
-    fetchEntries();
+
+    changeFilter();
 }
 
 async function fetchEntries() {
@@ -126,6 +128,27 @@ function getEntries(entry_content) {
 
             entry_content_div.append(entry_text);
 
+            let icon = document.createElement('div');
+            icon.classList.add('icon');
+
+            let icon_book = document.createElement('i');
+            icon_book.classList.add('bi', 'bi-bookmark');
+            icon_book.setAttribute('data-id', entry_content.id);
+
+            icon_book.addEventListener('click', () => {
+                if (icon_book.classList.contains('bi-bookmark-fill')) {
+                    icon_book.classList.remove('bi-bookmark-fill');
+                    icon_book.classList.add('bi-bookmark');
+                } else if (icon_book.classList.contains('bi-bookmark')) {
+                    icon_book.classList.remove('bi-bookmark');
+                    icon_book.classList.add('bi-bookmark-fill');
+                }
+            })
+
+            icon.append(icon_book);
+
+            entry_content_div.append(icon);
+
             entry.append(entry_content_div);
 
             contenedor_entradas.append(entry);
@@ -151,6 +174,132 @@ function createEntry(entry) {
                     console.log("No se ha podido subir");
             }
         });
+}
+
+function getUsers(username) {
+    // Busca el usuario que publicó la entrada para obtener sus datos
+    let error = 0;
+    const url = (`http://localhost/FillMeIn/api/filtrousuario.php?username=${ username }`);
+    fetch( url )
+    .then(response => {
+        switch (response.status) {
+            case 200:
+                return response.json();
+            case 404:
+                console.log('Hubo un error')
+            case 409:
+                return error = 409;
+        }
+    })
+    .then( data => {
+        if (error != 409){
+            data.forEach(item => {
+                if (item) {
+                    console.log(item);
+                    let user = document.createElement('div');
+                    user.classList.add('user-div');
+                    let image = '../imgs/Gray.png';
+                    if (item['image'] != null) {
+                        image = item['image'];
+                    }
+        
+                    let user_image = document.createElement('div');
+                    user_image.classList.add('user-image');
+        
+                    // Imagen del usuario
+                    let user_image_element = document.createElement('img');
+                    user_image_element.src = image;
+                    user_image_element.id = 'user-image-element';
+                    user_image_element.alt = 'User image';
+                    user_image_element.width = '70';
+                    user_image_element.height = '70';
+        
+                    user_image_element.addEventListener('click', () => {
+                        if (localStorage.getItem('webToken') != null &&
+                            item['id'] == localStorage.getItem('id') && 
+                            item['username'] == localStorage.getItem('username'))
+                        {
+                            window.location.href = 'user.html';
+                        } else {
+                            window.location.href = `userprofile.php?id=${ item['id'] }`;
+                        }
+                    })
+        
+                    user_image.append(user_image_element);
+                    user.append(user_image);
+        
+                    // Contenido del usuario
+                    let user_content_div = document.createElement('div');
+                    user_content_div.classList.add('user-content');
+        
+                    let user_name = document.createElement('div');
+                    user_name.classList.add('user-name');
+                    user_name.textContent = item['name'];
+        
+                    user_name.addEventListener('click', () => {
+                        if (localStorage.getItem('webToken') != null &&
+                            item['id'] == localStorage.getItem('id') && 
+                            item['username'] == localStorage.getItem('username'))
+                        {
+                            window.location.href = 'user.html';
+                        } else {
+                            window.location.href = `userprofile.php?id=${ item['id'] }`;
+                        }
+                    })
+        
+                    user_content_div.append(user_name);
+        
+                    let user_username = document.createElement('div');
+                    user_username.classList.add('user-username');
+                    user_username.textContent = `@${ item['username'] }`;
+        
+                    user_username.addEventListener('click', () => {
+                        if (localStorage.getItem('webToken') != null &&
+                            item['id'] == localStorage.getItem('id') && 
+                            item['username'] == localStorage.getItem('username'))
+                        {
+                            window.location.href = 'user.html';
+                        } else {
+                            window.location.href = `userprofile.php?id=${ item['id'] }`;
+                        }
+                    })
+        
+                    user_content_div.append(user_username);
+        
+                    if (item['biography'] != null && item['biograpy'] != "") {
+                        let user_biography = document.createElement('div');
+                        user_biography.classList.add('user-biography');
+                        let biography = defilterSymbols(item['biography']);
+                        user_biography.textContent = biography;
+            
+                        user_content_div.append(user_biography);
+                    }
+        
+                    user.append(user_content_div);
+        
+                    contenedor_usuarios.append(user);
+                } else {
+                    console.log("ERROR");
+                }
+            })
+        } else if (error == 409) {
+            contenedor_usuarios.innerHTML = `<div class="no-users">Nothing was found...</div>`;
+        }
+    })
+}
+
+function changeFilter() {
+    let filtro_usuario = document.querySelector('#search').value;
+    if (filtro_usuario == "" || filtro_usuario == null) {
+        contenedor_entradas.classList.remove('hidden');
+        contenedor_usuarios.classList.add('hidden');
+        fetchEntries();
+    } else {
+        contenedor_entradas.classList.add('hidden');
+        contenedor_usuarios.classList.remove('hidden');
+        contenedor_usuarios.innerHTML = ``;
+        getUsers(filtro_usuario);
+    }
 }
 
 // Filtra los símbolos del texto para pasarlos a códigos HTML

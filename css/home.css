@@ -137,40 +137,52 @@
 }
 
 /* ######################################
- *          CONTENEDOR ENTRADAS
+ *    CONTENEDOR ENTRADAS Y USUARIOS
  * ###################################### */
-.entry-container {
+.entry-container, #user-container {
     margin: 1em 1em 1em 0;
     padding-right: 1.5em;
     height: 30em;
     overflow-y: scroll;
 }
-.entry-container::-webkit-scrollbar {
+.entry-container::-webkit-scrollbar, #user-container::-webkit-scrollbar {
     width: 0.5em;
 }
 
-.entry-container::-webkit-scrollbar-track {
+.entry-container::-webkit-scrollbar-track, #user-container::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px #B6B6B6;
     border-radius: 10em;
 }
 
-.entry-container::-webkit-scrollbar-thumb {
+.entry-container::-webkit-scrollbar-thumb, #user-container::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     outline: 1px solid slategrey;
     border-radius: 10em;
 }
-.entry-div {
+.user-div {
+    /* border: 1px solid white; */
+}
+.entry-div, .user-div {
     display: grid;
-    grid-template-columns: 0.5fr 3.5fr 1fr;
-    min-height: 8em;
-    max-height: 25em;
+    grid-template-columns: 0.5fr 3.5fr 0.5fr;
+    max-height: 30em;
     height: fit-content;
     padding-top: 1em;
     border-bottom: 1px solid white;
 }
+.entry-div {
+    min-height: 8em;
+    padding-bottom: 1em;
+}
+.user-div {
+    min-height: 6em;
+}
 
-.entry-div img {
+.entry-div img, .user-image img {
     border-radius: 50%;
+}
+.user-image {
+    height: fit-content;
 }
 .entry-content {
     padding-left: 0.5em;
@@ -182,11 +194,35 @@
     font-size: small;
     opacity: 50%;
 }
-.entry-text {
+.entry-text, .user-biography {
     padding-top: 1.5em;
     padding-bottom: 1.5em;
     font-size: 0.9em;
 }
-#user-image-element, .entry-user, .entry-username {
+.user-biography {
+    opacity: 70%;
+}
+.icon {
+    display: flex;
+    justify-content: end;
+    font-size: large;
+}
+#user-image-element, .entry-user, .entry-username, .icon i, .user-name, .usern-username {
     cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+
+/* ######################################
+ *             ALGUNOS ERRORES
+ * ###################################### */
+.no-users {
+    text-align: center;
+    /* background-image: url('../imgs/user-not-found.png'); */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 10em;
+    opacity: 50%;
 }

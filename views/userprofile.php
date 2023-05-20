@@ -44,7 +44,7 @@
     <!-- CONTENIDO -->
     <div class="contenido">
 
-        <div class="back"><a href="home.html"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;&nbsp;User</a></div>
+        <div class="back"><a href="home.html"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;&nbsp;<?php echo $user[0]->username ?></a></div>
 
         <!-- Div principal -->
         <div id="principal">
@@ -77,11 +77,31 @@
                     </div>
                     <!-- Fin banner -->
 
-                    <!-- Botón de seguir usuario -->
-                    <div class="follow-div">
-                        <div id="follow-bt" class="follow"></div>
+                    <!-- Info de la cuenta -->
+                    <div class="info-account">
+
+                        <!-- Div auxiliar -->
+                        <div></div>
+                        <!-- Fin div auxiliar -->
+
+                        <!-- Cuenta profesional -->
+                        <div class="professional-account">
+                            <?php
+                                if ($user[0]->professional == 1) {
+                                    echo $user[0]->type;
+                                }
+                            ?>
+                        </div>
+                        <!-- Fin cuenta profesional -->
+
+                        <!-- Botón de seguir usuario -->
+                        <div class="follow-div">
+                            <div id="follow-bt" class="follow"></div>
+                        </div>
+                        <!-- Fin de botón de seguir usuario -->
+
                     </div>
-                    <!-- Fin de botón de seguir usuario -->
+                    <!-- Fin info de la cuenta -->
 
                     <!-- Información de usuario -->
                     <div class="user-info">
@@ -91,11 +111,11 @@
                         </div>
                         <div class="follow-info">
                             <div class="bold">Following</div>
-                            <div class="small following"><?php echo $user[0]->following ?></div>
+                            <div class="small following"></div>
                         </div>
                         <div class="follow-info">
                             <div class="bold">Followers</div>
-                            <div class="small followers"><?php echo $user[0]->followers ?></div>
+                            <div class="small followers"></div>
                         </div>
                     </div>
                     <!-- Fin de información de usuario -->
@@ -161,6 +181,7 @@
         } else {
             link.href = 'login.html';
         }
+        
     </script>
 </body>
 </html>

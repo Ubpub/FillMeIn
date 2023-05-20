@@ -20,6 +20,21 @@ function loadElement() {
             }
         })
     })
+
+    let follow = document.querySelector('#follow-bt');
+    follow.addEventListener('click', () => {
+        if (!follow.classList.contains('unfollow')) {
+            getUserInfo(username, true, false, false);
+        } else {
+            let remove = true;
+            getUserInfo(username, true, false, remove);
+        }
+        follow.classList.toggle('unfollow');
+    })
+
+    if (localStorage.getItem('webToken') != null) {
+        getUserInfo(username, false, false, false);
+    }
     getUserEntries(username);
 }
 
@@ -27,7 +42,6 @@ function loadElement() {
 async function getUserEntries(username) {
     const response = await fetch(`http://localhost/FillMeIn/api/entradas.php?username=${ username }`)
     .catch(error => console.error(error));
-    console.log(response);
     const data = await response.json();
 
     data.forEach(item => {
@@ -72,4 +86,164 @@ function getEntries(entry_content) {
             console.log("ERROR");
         }
     })
+}
+
+function getUserInfo(username, add, isFollowed, remove) {
+    // Busca el usuario que publicó la entrada para obtener sus datos
+    const url = (`http://localhost/FillMeIn/api/usuario.php?username=${ username }`);
+    fetch( url )
+    .then(response => {
+        switch (response.status) {
+            case 200:
+                return response.json();
+            case 404:
+                console.log('Hubo un error')
+            case 409:
+                console.log('Hubo un error')
+        }
+    })
+    .then( data => {
+        if (data[0]) {
+            let following = document.querySelector('.following');
+            let followers = document.querySelector('.followers');
+
+            if (data[0]['following'] != null && JSON.parse(data[0]['following']).length > 0) {
+                following.textContent = `${ JSON.parse(data[0]['following']).length }`
+            } else {
+                following.textContent = "0";
+            }
+
+            if (data[0]['followers'] != null && JSON.parse(data[0]['followers']).length > 0) {
+                followers.textContent = `${ JSON.parse(data[0]['followers']).length }`
+            } else {
+                followers.textContent = "0";
+            }
+
+            console.log(data[0]);
+
+            if (!isFollowed) {
+                getMyUserInfo(data[0]['id'], add, remove);
+            } else {
+                let followers = [];
+                if (data[0]['followers'] != null && data[0]['followers'].length > 0) {
+                    JSON.parse(data[0]['followers']).forEach(item => {
+                        followers.push(item);
+                    })
+                }
+                if (!remove) {
+                    followers.push(localStorage.getItem('id'));
+                } else {
+                    followers = followers.filter(item => item != localStorage.getItem('id'));
+                }
+
+                let user_followed = {
+                    'username': username,
+                    'following': null,
+                    'followers': JSON.stringify(followers),
+                }
+
+                // Actualiza los seguidos del usuario conectado
+                fetch( `http://localhost/FillMeIn/api/filtrousuario.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json,charset-utf-8'
+                    },
+                    body: JSON.stringify(user_followed),
+                } )
+                .then(response => {
+                    switch (response.status) {
+                        case 200:
+                            return response.json();
+                        case 404:
+                            return 400;
+                        case 409:
+                            return 409;
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                    // window.location.href = `userprofile.php`;
+                })
+            }
+        } else {
+            console.log("ERROR");
+        }
+    })
+}
+
+function getMyUserInfo(user_follow, add, remove) {
+    if (localStorage.getItem('webToken') != null) {
+        // Busca el usuario que publicó la entrada para obtener sus datos
+        const url = (`http://localhost/FillMeIn/api/usuario.php?id=${ localStorage.getItem('id') }&username=${ localStorage.getItem('username') }`);
+        fetch( url )
+        .then(response => {
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                case 404:
+                    console.log('Hubo un error')
+                case 409:
+                    console.log('Hubo un error')
+            }
+        })
+        .then( data => {
+            if (data[0] && add) {
+                let following = [];
+                if (data[0]['following'] != null && data[0]['following'].length > 0) {
+                    JSON.parse(data[0]['following']).forEach(item => {
+                        following.push(item);
+                    })
+                }
+                if (!remove) {
+                    following.push(user_follow);
+                } else {
+                    following = following.filter(item => item != user_follow);
+                }
+
+                let user = {
+                    'username': localStorage.getItem('username'),
+                    'following': JSON.stringify(following),
+                    'followers': null,
+                }
+
+                console.log(user);
+
+                // Actualiza los seguidos del usuario conectado
+                fetch( `http://localhost/FillMeIn/api/filtrousuario.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json,charset-utf-8'
+                    },
+                    body: JSON.stringify(user),
+                } )
+                .then(response => {
+                    switch (response.status) {
+                        case 200:
+                            return response.json();
+                        case 404:
+                            return 400;
+                        case 409:
+                            return 409;
+                    }
+                })
+                .then(data => {
+                    console.log('TODO BIEN');
+                })
+
+                getUserInfo(username, true, true, remove);
+
+            } else if (data[0] && !add) {
+                let following = data[0]['following'];
+                if (following != null) {
+                    JSON.parse(following).forEach(item => {
+                        if (item == user_follow) {
+                            document.querySelector('#follow-bt').classList.add('unfollow');
+                        } else {
+                            console.log("NO LE SIGUE");
+                        }
+                    })
+                }
+            }
+        })
+    }
 }

@@ -23,7 +23,7 @@
 
         <!-- Búsqueda -->
         <div id="busqueda">
-            <div><input type="text" name="search" id="search" placeholder="Look for users..."></div>
+            <div><input type="text" name="search" id="search" placeholder="Look for users..." onchange="changeFilter()"></div>
             <div class="filter">All users</div>
             <div class="filter start">Following</div>
             <div></div>
@@ -38,7 +38,7 @@
                 <div class="add-entry">
 
                     <!-- Si está loggeado -->
-                    <div class="logged" style="display: none;">
+                    <div class="logged" style="display: none;" class="hidden">
                         <div class="user-image"><img src="../imgs/Gray.png" id="user-image-element" alt="User image" width="70" height="70"></div>
                         <div class="textarea"><textarea name="entry" id="user-entry" placeholder="What is on your mind today?" maxlength="1000"></textarea></div>
                         <div class="upload-div">
@@ -60,10 +60,24 @@
                             <div class="entry-user">User</div>
                             <div class="entry-username">@username</div>
                             <div class="entry-text">Un texto que me dio la gana de poner</div>
+                            <div class="icon"><i class="bi bi-bookmark"></i></div>
                         </div>
                     </div> -->
                 </div>
                 <!-- Fin contenedor entradas -->
+
+                <!-- Contenedor usuarios -->
+                <div id="user-container">
+                    <!-- <div class="user-div">
+                        <div class="user-image"><img src="../imgs/Gray.png" id="user-image-element-2" alt="User image" width="70" height="70"></div>
+                        <div class="user-content">
+                            <div class="user-name">User</div>
+                            <div class="user-username">@username</div>
+                            <div class="user-biography">Un texto que me dio la gana de poner</div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- Fin contenedor usuarios -->
 
             </div>
             <!-- Fin entradas -->
