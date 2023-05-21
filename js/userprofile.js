@@ -5,6 +5,8 @@ let opiniones = document.querySelector('.opinion-mural');
 loadElement();
 
 function loadElement() {
+
+    // Filtros para las entradas y el muro
     let filtros = document.querySelectorAll('.filter-element');
     Array.from(filtros).forEach(item => {
         item.addEventListener('click', () => {
@@ -22,6 +24,7 @@ function loadElement() {
         })
     })
 
+    // Evento para el botón de Seguir y Dejar de seguir
     let follow = document.querySelector('#follow-bt');
     follow.addEventListener('click', () => {
         if (!follow.classList.contains('unfollow')) {
@@ -33,6 +36,7 @@ function loadElement() {
         follow.classList.toggle('unfollow');
     })
 
+    // Comprueba si hay un usuario con la sesión abierta y si tiene imagen de perfil
     if (localStorage.getItem('webToken') != null) {
         if (localStorage.getItem('image') != null) {
             document.querySelector('#user-image-element').src = localStorage.getItem('image');
@@ -40,6 +44,7 @@ function loadElement() {
             document.querySelector('#user-image-element').src = '../imgs/Gray.png';
         }
 
+        // Evento para subir opiniones al muro
         document.querySelector('.upload').addEventListener('click', () => {
             let contenido = document.querySelector('#user-opinion').value;
             if (contenido != null && contenido != "") {
@@ -47,13 +52,15 @@ function loadElement() {
                 uploadOpinion(opinion);
             }
         });
+
         getUserInfo(username, false, false, false);
     } else {
         document.querySelector('#follow-bt').style.display = 'none';
         document.querySelector('.add-entry').style.display = 'none';
     }
-    getUserEntries(username);
-    getUserOpinions(username);
+    
+    getUserEntries(username); // Obtiene las entradas del usuario
+    getUserOpinions(username); // Obtiene las opiniones dirigidas a este usuario
 }
 
 
@@ -327,6 +334,7 @@ function uploadOpinion(opinion) {
         });
 }
 
+// Genera un JSON de la opinión
 function generateOpinion(content) {
     return {
         'user_post': localStorage.getItem('username'),
