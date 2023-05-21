@@ -45,6 +45,12 @@ function loadElement() {
         })
     })
 
+    if (localStorage.getItem('image') != null) {
+        document.querySelector('#user-image-element').src = localStorage.getItem('image');
+    } else {
+        document.querySelector('#user-image-element').src = '../imgs/Gray.png';
+    }
+
     getUserInfo();
 }
 

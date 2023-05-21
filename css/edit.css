@@ -2,6 +2,13 @@
 .contenido {
     height: 60em;
 }
+.edit-div {
+    display: flex;
+    justify-content: end;
+    margin-top: 0.5em;
+    margin-bottom: 3em;
+    width: 95%;
+}
 #save-bt {
     display: flex;
     justify-content: center;

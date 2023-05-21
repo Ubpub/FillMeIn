@@ -68,7 +68,7 @@
                                 $image = $user[0]->image;
                                 // echo "<div id='user-photo' style='background-image:url($image)'></div>";
                                 ?>
-                                    <div id="user-photo" style="background-image:url('<?php echo $image; ?>')"></div>;
+                                    <div id="user-photo" style="background-image:url('<?php echo $image; ?>')"></div>
                                 <?php
                             } else {
                                 echo "<div id='user-photo'></div>";
@@ -142,6 +142,24 @@
 
                             <!-- Muro -->
                             <div class="filter-wall" style="display: none;">
+
+                                <!-- Añadir entrada en el muro -->
+                                <div class="add-entry">
+
+                                    <!-- Si está loggeado -->
+                                    <div class="logged">
+                                        <div class="user-image"><img src="../imgs/Gray.png" id="user-image-element" alt="User image" width="70" height="70"></div>
+                                        <div class="textarea"><textarea name="entry" id="user-opinion" placeholder="Write your thought about this user" maxlength="200"></textarea></div>
+                                        <div class="upload-div">
+                                            <div class="upload">Upload thought</div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin si está loggeado -->
+
+                                </div>
+                                <!-- Fin añadir entrada en el muro -->
+
+                                <div class="opinion-mural"></div>
 
                             </div>
                             <!-- Fin muro -->

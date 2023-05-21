@@ -206,3 +206,57 @@
     padding-bottom: 1.5em;
     font-size: 0.9em;
 }
+
+/* ##############################
+ *             MURO
+ * ############################## */
+.add-entry {
+    border-bottom: 1px solid white;
+    width: 95%;
+    height: auto;
+}
+.add-entry textarea {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 99%;
+    height: 7em;
+    color: white;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+.logged {
+    display: grid;
+    grid-template-columns: 0.5fr 3.5fr 1fr;
+}
+.logged img {
+    border-radius: 50%;
+}
+.user-image {
+    display: flex;
+    justify-content: center;
+    height: 7em;
+}
+.textarea {
+    width: 99%;
+}
+.upload-div {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 1em;
+}
+.upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: small;
+    border-radius: 5em;
+    width: 80%;
+    height: 2em;
+    background-color: white;
+    color: #69306D;
+    cursor: pointer;
+}

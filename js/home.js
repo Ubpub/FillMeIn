@@ -1,5 +1,6 @@
 let contenedor_entradas = document.querySelector('.entry-container');
 let contenedor_usuarios = document.querySelector('#user-container');
+let filter_selected = document.querySelector('.selected');
 
 loadElement();
 
@@ -12,17 +13,33 @@ function loadElement() {
         }
     })
 
+    let filters = document.querySelectorAll('.filter');
+    Array.from(filters).forEach(item => {
+        item.addEventListener('click', () => {
+            Array.from(filters).forEach(filtro => {
+                filtro.classList.remove('selected');
+            })
+            item.classList.add('selected');
+            changeFilter();
+        })
+    })
+
     changeFilter();
 }
 
 async function fetchEntries() {
-    const response = await fetch('http://localhost/FillMeIn/api/entradas.php')
-    .catch(error => console.error(error));
-    const data = await response.json();
-
-    data.forEach(item => {
-        getEntries(item);
-    })
+    let selected_filter = document.querySelector('.selected').textContent;
+    if (selected_filter == "All users") {
+        const response = await fetch('http://localhost/FillMeIn/api/entradas.php')
+        .catch(error => console.error(error));
+        const data = await response.json();
+    
+        data.forEach(item => {
+            getEntries(item);
+        })
+    } else if (selected_filter == "Following") {
+        getUser();
+    }
 }
 
 function getEntries(entry_content) {
@@ -49,14 +66,6 @@ function getEntries(entry_content) {
             }
 
             // Crea la entrada en la página
-            /* entry.innerHTML = `
-                <div class="user-image"><img src="${ image }" id="user-image-element" alt="User image" width="70" height="70"></div>
-                <div class="entry-content">
-                    <div class="entry-user">${ data[0]['name'] }</div>
-                    <div class="entry-username">@${ data[0]['username'] }</div>
-                    <div class="entry-text">${ entry_content.content }</div>
-                </div>
-            `; */
 
             let user_image = document.createElement('div');
             user_image.classList.add('user-image');
@@ -195,7 +204,6 @@ function getUsers(username) {
         if (error != 409){
             data.forEach(item => {
                 if (item) {
-                    console.log(item);
                     let user = document.createElement('div');
                     user.classList.add('user-div');
                     let image = '../imgs/Gray.png';
@@ -293,6 +301,7 @@ function changeFilter() {
     if (filtro_usuario == "" || filtro_usuario == null) {
         contenedor_entradas.classList.remove('hidden');
         contenedor_usuarios.classList.add('hidden');
+        contenedor_entradas.innerHTML = ``;
         fetchEntries();
     } else {
         contenedor_entradas.classList.add('hidden');
@@ -300,6 +309,176 @@ function changeFilter() {
         contenedor_usuarios.innerHTML = ``;
         getUsers(filtro_usuario);
     }
+}
+
+function getUser() {
+    // Busca el usuario que publicó la entrada para obtener sus datos
+    const url = (`http://localhost/FillMeIn/api/usuario.php?username=${ localStorage.getItem('username') }`);
+    fetch( url )
+    .then(response => {
+        switch (response.status) {
+            case 200:
+                return response.json();
+            case 404:
+                console.log('Hubo un error')
+            case 409:
+                return error = 409;
+        }
+    })
+    .then( data_user => {
+        if (data_user[0]) {
+
+            // Obtiene las entradas
+            fetch( 'http://localhost/FillMeIn/api/entradas.php' )
+            .then(response => {
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    case 404:
+                        console.log('Hubo un error')
+                    case 409:
+                        return error = 409;
+                }
+            })
+            .then( data_entry => {
+                if (data_entry) {
+
+                    data_entry.forEach(data_entry_item => {
+
+                        // Obtiene el usuario de la entrada
+                        fetch( `http://localhost/FillMeIn/api/usuario.php?username=${ data_entry_item['username'] }` )
+                        .then(response => {
+                            switch (response.status) {
+                                case 200:
+                                    return response.json();
+                                case 404:
+                                    console.log('Hubo un error')
+                                case 409:
+                                    return error = 409;
+                            }
+                        })
+                        .then( data_user_found => {
+                            if (data_user_found[0]) {
+
+                                JSON.parse(data_user[0]['following']).forEach(item => {
+                                    if (item == data_user_found[0]['id']) {
+
+                                        // Imprime la entrada con sus valores
+                                        let entry = document.createElement('div');
+                                        entry.classList.add('entry-div');
+                                        let image = '../imgs/Gray.png';
+                                        if (data_user_found[0]['image'] != null) {
+                                            image = data_user_found[0]['image'];
+                                        }
+
+                                        // Crea la entrada en la página
+                                        let user_image = document.createElement('div');
+                                        user_image.classList.add('user-image');
+
+                                        // Imagen del usuario
+                                        let user_image_element = document.createElement('img');
+                                        user_image_element.src = image;
+                                        user_image_element.id = 'user-image-element';
+                                        user_image_element.alt = 'User image';
+                                        user_image_element.width = '70';
+                                        user_image_element.height = '70';
+
+                                        user_image_element.addEventListener('click', () => {
+                                            if (localStorage.getItem('webToken') != null &&
+                                                data_user_found[0]['id'] == localStorage.getItem('id') && 
+                                                data_user_found[0]['username'] == localStorage.getItem('username'))
+                                            {
+                                                window.location.href = 'user.html';
+                                            } else {
+                                                window.location.href = `userprofile.php?id=${ data_user_found[0]['id'] }`;
+                                            }
+                                        })
+
+                                        user_image.append(user_image_element);
+                                        entry.append(user_image);
+
+                                        // Contenido de la entrada
+                                        let entry_content_div = document.createElement('div');
+                                        entry_content_div.classList.add('entry-content');
+
+                                        let entry_user = document.createElement('div');
+                                        entry_user.classList.add('entry-user');
+                                        entry_user.textContent = data_user_found[0]['name'];
+
+                                        entry_user.addEventListener('click', () => {
+                                            if (localStorage.getItem('webToken') != null &&
+                                                data_user_found[0]['id'] == localStorage.getItem('id') && 
+                                                data_user_found[0]['username'] == localStorage.getItem('username'))
+                                            {
+                                                window.location.href = 'user.html';
+                                            } else {
+                                                window.location.href = `userprofile.php?id=${ data_user_found[0]['id'] }`;
+                                            }
+                                        })
+
+                                        entry_content_div.append(entry_user);
+
+                                        let entry_username = document.createElement('div');
+                                        entry_username.classList.add('entry-username');
+                                        entry_username.textContent = `@${ data_user_found[0]['username'] }`;
+
+                                        entry_username.addEventListener('click', () => {
+                                            if (localStorage.getItem('webToken') != null &&
+                                                data_user_found[0]['id'] == localStorage.getItem('id') && 
+                                                data_user_found[0]['username'] == localStorage.getItem('username'))
+                                            {
+                                                window.location.href = 'user.html';
+                                            } else {
+                                                window.location.href = `userprofile.php?id=${ data_user_found[0]['id'] }`;
+                                            }
+                                        })
+
+                                        entry_content_div.append(entry_username);
+
+                                        let entry_text = document.createElement('div');
+                                        entry_text.classList.add('entry-text');
+                                        let contenido = defilterSymbols(data_entry_item.content);
+                                        entry_text.textContent = contenido;
+
+                                        entry_content_div.append(entry_text);
+
+                                        let icon = document.createElement('div');
+                                        icon.classList.add('icon');
+
+                                        let icon_book = document.createElement('i');
+                                        icon_book.classList.add('bi', 'bi-bookmark');
+                                        icon_book.setAttribute('data-id', data_entry_item.id);
+
+                                        icon_book.addEventListener('click', () => {
+                                            if (icon_book.classList.contains('bi-bookmark-fill')) {
+                                                icon_book.classList.remove('bi-bookmark-fill');
+                                                icon_book.classList.add('bi-bookmark');
+                                            } else if (icon_book.classList.contains('bi-bookmark')) {
+                                                icon_book.classList.remove('bi-bookmark');
+                                                icon_book.classList.add('bi-bookmark-fill');
+                                            }
+                                        })
+
+                                        icon.append(icon_book);
+
+                                        entry_content_div.append(icon);
+
+                                        entry.append(entry_content_div);
+
+                                        contenedor_entradas.append(entry);
+                                    }
+                                })
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    })
+}
+
+function getEntryByUserId(id) {
+
 }
 
 // Filtra los símbolos del texto para pasarlos a códigos HTML

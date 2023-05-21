@@ -25,6 +25,9 @@
 .filter:hover {
     color: yellow;
 }
+.selected {
+    color: yellow;
+}
 
 /* ######################################
  *               PRINCIPAL
@@ -158,9 +161,6 @@
     background-color: darkgrey;
     outline: 1px solid slategrey;
     border-radius: 10em;
-}
-.user-div {
-    /* border: 1px solid white; */
 }
 .entry-div, .user-div {
     display: grid;
