@@ -173,6 +173,7 @@ function getUserInfo(username, add, isFollowed, remove) {
                     'username': username,
                     'following': null,
                     'followers': JSON.stringify(followers),
+                    'saved_entries': null,
                 }
 
                 // Actualiza los seguidos del usuario conectado
@@ -237,6 +238,7 @@ function getMyUserInfo(user_follow, add, remove) {
                     'username': localStorage.getItem('username'),
                     'following': JSON.stringify(following),
                     'followers': null,
+                    'saved_entries': null,
                 }
 
                 // Actualiza los seguidos del usuario conectado

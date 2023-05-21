@@ -2,6 +2,11 @@ let contenedor_entradas = document.querySelector('.entry-container');
 let contenedor_usuarios = document.querySelector('#user-container');
 let filter_selected = document.querySelector('.selected');
 
+let saved_entries_user = [];
+if (localStorage.getItem('webToken') != null) {
+    getActualUser(saved_entries_user);
+}
+
 loadElement();
 
 function loadElement() {
@@ -39,6 +44,17 @@ async function fetchEntries() {
         })
     } else if (selected_filter == "Following") {
         getUser();
+    }
+}
+
+async function getActualUser(saved_entries_user) {
+    const response = await fetch(`http://localhost/FillMeIn/api/usuario.php?username=${ localStorage.getItem('username') }`)
+    .catch(error => console.error(error));
+    const data = await response.json();
+    if (data[0]['saved_entries'] != null && data[0]['saved_entries'].length > 0) {
+        JSON.parse(data[0]['saved_entries']).forEach(item => {
+            saved_entries_user.push(item);
+        })
     }
 }
 
@@ -141,8 +157,14 @@ function getEntries(entry_content) {
             icon.classList.add('icon');
 
             let icon_book = document.createElement('i');
-            icon_book.classList.add('bi', 'bi-bookmark');
+            // icon_book.classList.add('bi', 'bi-bookmark');
+            // icon_book.setAttribute('onclick', 'saveEntry(this)');
             icon_book.setAttribute('data-id', entry_content.id);
+            if (saved_entries_user.includes(icon_book.getAttribute('data-id'))) {
+                icon_book.classList.add('bi-bookmark-fill');
+            } else {
+                icon_book.classList.add('bi-bookmark');
+            }
 
             icon_book.addEventListener('click', () => {
                 if (icon_book.classList.contains('bi-bookmark-fill')) {
@@ -153,6 +175,11 @@ function getEntries(entry_content) {
                     icon_book.classList.add('bi-bookmark-fill');
                 }
             })
+            icon_book.onclick = (e) => {
+                saveEntry(e, icon_book);
+            }
+
+
 
             icon.append(icon_book);
 
@@ -281,6 +308,15 @@ function getUsers(username) {
                         user_biography.textContent = biography;
             
                         user_content_div.append(user_biography);
+                    }
+
+                    if (item['professional'] == 1) {
+                        let type = document.createElement('div');
+                        type.classList.add('prof-type');
+                        let type_text = defilterSymbols(item['type']);
+                        type.textContent = type_text;
+
+                        user_content_div.append(type);
                     }
         
                     user.append(user_content_div);
@@ -477,8 +513,74 @@ function getUser() {
     })
 }
 
-function getEntryByUserId(id) {
+// Guardar una entrada
+function saveEntry(e, icon) {
+    console.log(e.target.getAttribute('data-id'));
+    if (localStorage.getItem('webToken') != null) {
+        
+        // Busca el usuario que tiene la sesión iniciada
+        const url = (`http://localhost/FillMeIn/api/usuario.php?username=${ localStorage.getItem('username') }`);
+        fetch( url )
+        .then(response => {
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                case 404:
+                    console.log('Hubo un error')
+                case 409:
+                    console.log('Hubo un error')
+            }
+        })
+        .then( data => {
+            if (data[0]) {
+                let isSaved = false;
+                if (icon.classList.contains('bi-bookmark-fill')) {
+                    isSaved = true;
+                }
+                let saved_entries = [];
+                if (data[0]['saved_entries'] != null && data[0]['saved_entries'].length > 0) {
+                    JSON.parse(data[0]['saved_entries']).forEach(item => {
+                        saved_entries.push(item);
+                    })
+                }
+                if (isSaved) {
+                    saved_entries.push(e.target.getAttribute('data-id'));
+                } else {
+                    saved_entries = saved_entries.filter(item => item != e.target.getAttribute('data-id'));
+                }
 
+                console.log(saved_entries);
+
+                let saved_entry = {
+                    'username': localStorage.getItem('username'),
+                    'following': null,
+                    'followers': null,
+                    'saved_entries': JSON.stringify(saved_entries),
+                }
+
+                console.log(saved_entry);
+
+                // Actualiza los seguidos del usuario conectado
+                fetch( `http://localhost/FillMeIn/api/filtrousuario.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json,charset-utf-8'
+                    },
+                    body: JSON.stringify(saved_entry),
+                } )
+                .then(response => {
+                    switch (response.status) {
+                        case 200:
+                            return response.json();
+                        case 404:
+                            return 400;
+                        case 409:
+                            return 409;
+                    }
+                })
+            }
+        })
+    }
 }
 
 // Filtra los símbolos del texto para pasarlos a códigos HTML

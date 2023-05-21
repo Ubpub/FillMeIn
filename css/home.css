@@ -90,6 +90,12 @@
 .logged img {
     border-radius: 50%;
 }
+.user-content {
+    height: 8em;
+}
+.prof-type {
+    color: yellow;
+}
 .user-image {
     display: flex;
     justify-content: center;

@@ -52,7 +52,7 @@
                 $fecha_actual = date('Y-m-s H:i:s');
 
                 // Sentencia para insertar la entrada en la base de datos
-                $sql = "INSERT INTO entradas (username, content, date) VALUES ('{$entrada->username}', '{$entrada->content}', $fecha_actual)";
+                $sql = "INSERT INTO entradas (username, content, date) VALUES ('{$entrada->username}', '{$entrada->content}', '$fecha_actual')";
 
                 echo $sql;
                 $con->query($sql);

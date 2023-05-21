@@ -65,6 +65,9 @@
                     if ($user->following != null) {
                         $sql .= ", following = '{$user->following}'";
                     }
+                    if ($user->saved_entries != null) {
+                        $sql .= " , saved_entries = '{$user->saved_entries}'";
+                    }
                     $sql .= " WHERE username = '{$user->username}'";
 
                     // Ejecución de la sentencia

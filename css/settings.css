@@ -1,0 +1,80 @@
+.contenido {
+    margin: 1.5em 5em 1.5em 5em;
+    height: fit-content;
+}
+.account, .about {
+    margin: 20px 0 20px;
+}
+.text {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 0 0 5px;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+}
+.icon {
+    margin-right: 1em;
+}
+
+/* -------- ACCOUNT CONTENT -------- */
+.account-content {
+    padding: 10px 0 10px 30px;
+    font-weight: lighter;
+    opacity: 90%;
+}
+
+/* -------- PRIVATE CONTENT -------- */
+.private {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+#private-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.set-private-btn {
+    display: flex;
+    align-items: center;
+    width: 3.3em;
+    height: 1.5em;
+    border-radius: 50px;
+    background-color: #d9d9d977;
+    cursor: pointer;
+}
+.btn-ball {
+    margin: 0 3px 0 3px;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50px;
+    background-color: #D9D9D9;
+}
+
+/* -------- PASSWORD CONTENT -------- */
+.password-div {
+    margin: 20px 0 0;
+}
+.password-text {
+    padding: 0 0 5px;
+    border-bottom: 1px solid white;
+}
+.inputs-pass {
+    margin-top: 1em;
+}
+.input-item {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.input-item input {
+    width: 25em;
+    max-width: 25em;
+    min-width: 10em;
+    height: 3em;
+    max-height: 3em;
+    min-height: 3em;
+    padding-left: 3em;
+    border-radius: 50px;
+    background-color: transparent;
+    border: 1px solid white;
+}

@@ -83,7 +83,8 @@
     text-align: center;
     font-weight: lighter;
     font-size: 1.2em;
-    color: rgba(255, 255, 255, 0.884);
+    /* color: rgba(255, 255, 255, 0.884); */
+    color: yellow;
 }
 .edit-div {
     display: flex;

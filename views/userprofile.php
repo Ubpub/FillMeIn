@@ -176,7 +176,7 @@
             <!-- Menú derecha -->
             <div class="p-element right-menu">
                 <a href="home.html"><div><i class="bi bi-house-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Home</div></a>
-                <div><i class="bi bi-gear-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Settings</div>
+                <a href="settings.html"><div><i class="bi bi-gear-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Settings</div></a>
                 <a href="home.html" class="profile-link"><div><i class="bi bi-person-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</div></a>
             </div>
             <!-- Fin menú derecha -->

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FillMeIn - Settings</title>
+
+    <!-- Icono -->
+    <link rel="icon" href="../imgs/icons/F.png">
+
+    <!-- Iconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- Links css -->
+    <link rel="stylesheet" href="../css/settings.css">
+
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header"></div>
+
+    <!-- CONTENIDO -->
+    <div class="contenido">
+        
+        <!-- Contenedor de cuenta -->
+        <div class="account">
+            <div class="text"><img src="../imgs/icons/user.png" alt="User" class="icon">Account</div>
+            <div class="account-content">
+
+                <!-- Private div -->
+                <div class="private">
+                    <div>Set to private account</div>
+                    <div id="private-btn">
+                        <div class="set-private-btn">
+                            <div class="btn-ball"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin private div -->
+
+                <!-- Password div -->
+                <div class="password-div">
+                    <div class="password-text">Change password</div>
+                    <div class="inputs-pass">
+                        <div class="input-item"><input type="password" name="current-password" id="current-password" placeholder="Current password"></div>
+                        <div class="input-item"><input type="password" name="new-password" id="new-password" placeholder="New password"></div>
+                        <div class="input-item"><input type="password" name="repeat-password" id="repeat-password" placeholder="Repeat new password"></div>
+                    </div>
+                </div>
+                <!-- Fin password div -->
+
+            </div>
+        </div>
+        <!-- Fin de contenedor de cuenta -->
+
+        <div class="about">
+            <div class="text"><img src="../imgs/icons/info.png" alt="User" class="icon">About</div>
+            <div class="about-content" style="display: none;"></div>
+        </div>
+
+    </div>
+    <!-- FIN CONTENIDO -->
+
+    <!-- FOOTER -->
+    <div class="footer"></div>
+
+    <script src="../js/addElements.js"></script>
+</body>
+</html>
