@@ -15,7 +15,7 @@
             // Comprueba si se le ha pasado el id por parámetro y lo añade a la consulta
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
-                $sql .= " AND id = '$id";
+                $sql .= " AND id = '$id'";
             }
 
             // Comprueba si se ha pasado el nombre de usuario por parámetro y lo añade a la consulta

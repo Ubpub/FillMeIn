@@ -139,7 +139,7 @@
 .filters {
     border-bottom: 1px solid white;
     display: grid;
-    grid-template-columns: 0.4fr 0.4fr 3fr;
+    grid-template-columns: 0.4fr 0.4fr 0.5fr 3fr;
 }
 .filter-element {
     border-bottom: 3px solid #432745;
@@ -147,7 +147,7 @@
     font-size: 0.9em;
     cursor: pointer;
 }
-.wall {
+.wall, .saved {
     display: flex;
     justify-content: center;
 }

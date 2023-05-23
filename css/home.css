@@ -213,7 +213,7 @@
     justify-content: end;
     font-size: large;
 }
-#user-image-element, .entry-user, .entry-username, .icon i, .user-name, .usern-username {
+#user-image-element, .entry-user, .entry-username, .icon i, .user-name, .user-username {
     cursor: pointer;
 }
 .hidden {

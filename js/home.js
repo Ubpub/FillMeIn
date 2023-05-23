@@ -515,7 +515,6 @@ function getUser() {
 
 // Guardar una entrada
 function saveEntry(e, icon) {
-    console.log(e.target.getAttribute('data-id'));
     if (localStorage.getItem('webToken') != null) {
         
         // Busca el usuario que tiene la sesión iniciada

@@ -17,7 +17,15 @@
             
             if (isset($_GET['username'])) {
                 $username = $_GET['username'];
-                $sql .= " AND username LIKE '%$username%'";
+                $sql .= " AND (username LIKE '%$username%' OR type LIKE '%$username%')";
+            }
+            if (isset($_GET['professional'])) {
+                $professional = $_GET['professional'];
+                if ($professional == 'personal') {
+                    $sql .= " AND professional = '0'";
+                } else {
+                    $sql .= " AND professional = '1'";
+                }
             }
 
             // echo $sql;

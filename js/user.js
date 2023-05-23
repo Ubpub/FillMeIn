@@ -1,6 +1,7 @@
 let user = {};
 let contenedor_entradas = document.querySelector('.filter-entry');
 let opiniones = document.querySelector('.opinion-mural');
+let entradas_guardadas = document.querySelector('.filter-saved-entries');
 
 if (localStorage.getItem('webToken') != null) {
     document.title = `FillMeIn - ${ localStorage.getItem('username') }`
@@ -40,9 +41,15 @@ function loadElement() {
             if (item.textContent == "Entries") {
                 document.querySelector('.filter-entry').style.display = "block";
                 document.querySelector('.filter-wall').style.display = "none";
-            } else {
+                document.querySelector('.filter-saved-entries').style.display = "none";
+            } else if(item.textContent == "Wall") {
                 document.querySelector('.filter-entry').style.display = "none";
                 document.querySelector('.filter-wall').style.display = "block";
+                document.querySelector('.filter-saved-entries').style.display = "none";
+            } else {
+                document.querySelector('.filter-entry').style.display = "none";
+                document.querySelector('.filter-wall').style.display = "none";
+                document.querySelector('.filter-saved-entries').style.display = "block";
             }
         })
     })
@@ -64,8 +71,8 @@ function loadElement() {
     });
 
     // Obtener la información del usuario
-    getUserInfo();
     getUserOpinions(localStorage.getItem('username')); // Obtiene las opiniones de este usuario
+    getUserSavedEntries(); // Obtiene las entradas guardadas del usuario
 }
 
 // Obtiene los valores de un usuario pasado por parámetro (El nombre de usuario)
@@ -109,6 +116,21 @@ function getValues(username) {
                     document.querySelector('.followers').textContent = `0`;
                 }
 
+                let following = document.querySelector('.following');
+                let followers = document.querySelector('.followers');
+
+                if (data[0]['following'] != null && JSON.parse(data[0]['following']).length > 0) {
+                    following.textContent = `${ JSON.parse(data[0]['following']).length }`
+                } else {
+                    following.textContent = "0";
+                }
+
+                if (data[0]['followers'] != null && JSON.parse(data[0]['followers']).length > 0) {
+                    followers.textContent = `${ JSON.parse(data[0]['followers']).length }`
+                } else {
+                    followers.textContent = "0";
+                }
+
                 getUserEntries(data[0]['username']);
             } else {
                 // Si no hay información se muestra lo siguiente
@@ -126,7 +148,6 @@ function getValues(username) {
 async function getUserEntries(username) {
     const response = await fetch(`http://localhost/FillMeIn/api/entradas.php?username=${ username }`)
     .catch(error => console.error(error));
-    console.log(response);
     const data = await response.json();
 
     data.forEach(item => {
@@ -177,44 +198,6 @@ function getEntries(entry_content) {
                 </div>
             `;
             contenedor_entradas.append(entry);
-        } else {
-            console.log("ERROR");
-        }
-    })
-}
-
-function getUserInfo() {
-    // Busca el usuario que publicó la entrada para obtener sus datos
-    const url = (`http://localhost/FillMeIn/api/usuario.php?username=${ localStorage.getItem('username') }`);
-    fetch( url )
-    .then(response => {
-        switch (response.status) {
-            case 200:
-                return response.json();
-            case 404:
-                console.log('Hubo un error')
-            case 409:
-                console.log('Hubo un error')
-        }
-    })
-    .then( data => {
-        if (data[0]) {
-            let following = document.querySelector('.following');
-            let followers = document.querySelector('.followers');
-
-            if (data[0]['following'] != null && JSON.parse(data[0]['following']).length > 0) {
-                following.textContent = `${ JSON.parse(data[0]['following']).length }`
-            } else {
-                following.textContent = "0";
-            }
-
-            if (data[0]['followers'] != null && JSON.parse(data[0]['followers']).length > 0) {
-                followers.textContent = `${ JSON.parse(data[0]['followers']).length }`
-            } else {
-                followers.textContent = "0";
-            }
-
-            console.log(data[0]);
         } else {
             console.log("ERROR");
         }
@@ -276,6 +259,89 @@ function uploadOpinion(opinion) {
                     console.log("No se ha podido subir");
             }
         });
+}
+
+function getUserSavedEntries() {
+    // Busca el usuario que publicó la entrada para obtener sus datos
+    const url = (`http://localhost/FillMeIn/api/usuario.php?username=${ localStorage.getItem('username') }`);
+    fetch( url )
+    .then(response => {
+        switch (response.status) {
+            case 200:
+                return response.json();
+            case 404:
+                console.log('Hubo un error')
+            case 409:
+                console.log('Hubo un error')
+        }
+    })
+    .then( data => {
+        if (data[0]) {
+            if (data[0]['saved_entries'] != null && JSON.parse(data[0]['saved_entries']).length > 0) {
+
+                JSON.parse(data[0]['saved_entries']).forEach(item => {
+                    // Obtiene las entradas
+                    fetch(`http://localhost/FillMeIn/api/entradas.php?id=${ item }`)
+                    .then(response => {
+                        switch (response.status) {
+                            case 200:
+                                return response.json();
+                            case 404:
+                                console.log('Hubo un error')
+                            case 409:
+                                console.log('Hubo un error')
+                        }
+                    })
+                    .then( data_entry => {
+                        if (data_entry[0]) {
+
+                            // Obtener el usuario de la entrada...
+                            fetch(`http://localhost/FillMeIn/api/usuario.php?username=${ data_entry[0]['username'] }`)
+                            .then(response => {
+                                switch (response.status) {
+                                    case 200:
+                                        return response.json();
+                                    case 404:
+                                        console.log('Hubo un error')
+                                    case 409:
+                                        console.log('Hubo un error')
+                                }
+                            })
+                            .then( data_user => {
+                                if (data_user[0]) {
+
+                                    let entrada = document.createElement('div');
+                                    entrada.classList.add('entry-div');
+                                    let image = '../imgs/Gray.png';
+                                    if (data_user[0]['image'] != null) {
+                                        image = data_user[0]['image'];
+                                    }
+
+                                    // Crea la entrada en la página
+                                    entrada.innerHTML = `
+                                        <div class="user-image"><img src="${ image }" id="user-image-element" alt="User image" width="70" height="70"></div>
+                                        <div class="entry-content">
+                                            <div class="entry-user">${ data_user[0]['name'] }</div>
+                                            <div class="entry-username">@${ data_user[0]['username'] }</div>
+                                            <div class="entry-text">${ data_entry[0]['content'] }</div>
+                                        </div>
+                                    `;
+                                    entradas_guardadas.append(entrada);
+                                } else {
+                                    console.log("ERROR");
+                                }
+                            })
+                        } else {
+                            console.log("ERROR");
+                        }
+                    })
+                })
+                
+            }
+        } else {
+            console.log("ERROR");
+        }
+    })
 }
 
 // Genera un JSON de la opinión
