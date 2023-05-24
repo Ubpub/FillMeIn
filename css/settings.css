@@ -16,6 +16,9 @@
 .icon {
     margin-right: 1em;
 }
+.hidden {
+    display: none;
+}
 
 /* -------- ACCOUNT CONTENT -------- */
 .account-content {
@@ -76,5 +79,27 @@
     padding-left: 3em;
     border-radius: 50px;
     background-color: transparent;
+    color: white;
     border: 1px solid white;
+}
+.it1 {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+}
+.it1 .save-pass {
+    display: flex;
+    justify-content: end;
+}
+#save-pass-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10em;
+    height: 2.5em;
+    border-radius: 50em;
+    font-weight: bold;
+    color: #69306D;
+    border: 1px solid white;
+    background-color: white;
+    cursor: pointer;
 }

@@ -26,7 +26,7 @@
         
         <!-- Contenedor de cuenta -->
         <div class="account">
-            <div class="text"><img src="../imgs/icons/user.png" alt="User" class="icon">Account</div>
+            <div class="text text-account"><img src="../imgs/icons/user.png" alt="User" class="icon">Account</div>
             <div class="account-content">
 
                 <!-- Private div -->
@@ -44,7 +44,10 @@
                 <div class="password-div">
                     <div class="password-text">Change password</div>
                     <div class="inputs-pass">
-                        <div class="input-item"><input type="password" name="current-password" id="current-password" placeholder="Current password"></div>
+                        <div class="input-item it1">
+                            <div><input type="password" name="current-password" id="current-password" placeholder="Current password"></div>
+                            <div class="save-pass"><div id="save-pass-btn">Save changes</div></div>
+                        </div>
                         <div class="input-item"><input type="password" name="new-password" id="new-password" placeholder="New password"></div>
                         <div class="input-item"><input type="password" name="repeat-password" id="repeat-password" placeholder="Repeat new password"></div>
                     </div>
@@ -56,8 +59,8 @@
         <!-- Fin de contenedor de cuenta -->
 
         <div class="about">
-            <div class="text"><img src="../imgs/icons/info.png" alt="User" class="icon">About</div>
-            <div class="about-content" style="display: none;"></div>
+            <div class="text text-about"><img src="../imgs/icons/info.png" alt="User" class="icon">About</div>
+            <div class="about-content hidden">INFO</div>
         </div>
 
     </div>
@@ -67,5 +70,6 @@
     <div class="footer"></div>
 
     <script src="../js/addElements.js"></script>
+    <script src="../js/settings.js"></script>
 </body>
 </html>

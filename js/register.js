@@ -1,6 +1,7 @@
 const patrones = {
     'email': /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/,
     "fecha": /^([1-2][0-9]{3})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[0-1])$/,
+    'pass': /^(?=.*)(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
 }
 
 loadElement();
@@ -180,6 +181,11 @@ function checkValues(username, name, email, birthday, pass, repeat_pass, isProfe
     } else if (pass.length < 6) {
         document.querySelector("#user_pass").style.border = "1px solid red";
         document.querySelector('.password-alert').textContent = "Password must be at least 6 characters long";
+        document.querySelector('.password-alert').style.display = "block";
+        valid = false;
+    } else if (!!patrones['pass'].test(pass)) {
+        document.querySelector("#user_pass").style.border = "1px solid red";
+        document.querySelector('.password-alert').textContent = "Password must contain special characters and caps";
         document.querySelector('.password-alert').style.display = "block";
         valid = false;
     } else {
