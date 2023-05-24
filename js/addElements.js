@@ -37,6 +37,11 @@ function getElements(view, id, isHeader) {
                     }
                     closeSession();
                 }
+            } else {
+                if (localStorage.getItem('webToken') != null) {
+                    document.querySelector('#login-link').href = 'user.html';
+                    document.querySelector('#register-link').href = 'user.html';
+                }
             }
         });
 }

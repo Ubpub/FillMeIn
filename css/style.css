@@ -111,7 +111,25 @@ a {
  *                 FOOTER
  * ####################################### */
 footer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     background-color: #69306D;
-    height: 10em;
+    height: fit-content;
+    min-height: 15em;
+    padding-left: 5em;
+    padding-right: 5em;
     clear: both;
+}
+footer div {
+    padding: 0.5em;
+}
+.about-footer div, .quick-links-footer {
+    font-size: 1.3em;
+}
+.about-footer span {
+    opacity: 80%;
+}
+.link-f {
+    font-size: 0.7em;
+    opacity: 80%;
 }
