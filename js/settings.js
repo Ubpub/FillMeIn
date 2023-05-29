@@ -66,9 +66,6 @@ function checkValues(cpass, npass, rpass) {
     if (cpass.value == "") {
         cpass.style.border = '1px solid red';
         valid = false;
-    } else if (pass_patron.test(cpass.value)) {
-        npass.style.border = '1px solid red';
-        valid = false;
     } else {
         cpass.style.border = '1px solid white';
     }
@@ -86,7 +83,7 @@ function checkValues(cpass, npass, rpass) {
     if (rpass.value == "") {
         rpass.style.border = '1px solid red';
         valid = false;
-    } else if (rpass.value != cpass.value) {
+    } else if (rpass.value != npass.value) {
         rpass.style.border = '1px solid red';
     } else if (pass_patron.test(rpass.value)) {
         rpass.style.border = '1px solid red';

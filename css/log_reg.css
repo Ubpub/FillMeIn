@@ -113,3 +113,19 @@
     text-align: center;
     color: red;
 }
+
+/* #######################
+ *        RESPONSIVE
+ * ####################### */
+@media(max-width:900px) {
+    #login, #register {
+        width: 100%;
+        border-radius: none;
+        border: none;
+    }
+    .registerDiv {
+        padding: 0;
+        grid-template-columns: 1fr 2fr;
+        font-size: small;
+    }
+}

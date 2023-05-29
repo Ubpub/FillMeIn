@@ -2,6 +2,9 @@
 /* #################################
  *              IMAGEN
  * ################################# */
+/* .contenido {
+    height: 100em;
+} */
 .landingImg {
     position: relative;
     background-image: url('../imgs/People1.jpg');
@@ -58,4 +61,17 @@
     left: 0;
     right: 0;
     font-size: 70px;
+}
+
+/* #################################
+ *           RESPONSIVE
+ * ################################# */
+@media(max-width: 640px) {
+    .temas {
+        display: block;
+        /* height: 20em; */
+    }
+    .tema1, .tema2 {
+        height: 13em;
+    }
 }

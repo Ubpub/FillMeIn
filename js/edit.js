@@ -1,7 +1,7 @@
 // Patrones para el correo y la fecha
 const patrones = {
     'email': /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/,
-    'fecha': /^([1-2][0-9]{3})\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[0-1])$/,
+    'fecha': /^([1-2][0-9]{3})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[0-1])$/,
 };
 
 let user = {};
@@ -75,10 +75,10 @@ function getValues(username) {
                     }
                     document.querySelector('#user-input').value = `${ data[0]['name'] }`;
                     document.querySelector('#username-input').value = `${ data[0]['username'] }`;
-                    if (data[0]['biography'] != null || data[0]['biography'] != "") {
+                    if (data[0]['biography'] != null && data[0]['biography'] != "") {
                         document.querySelector('#biography-input').value = `${ defilterSymbols(data[0]['biography']) }`;
                     }
-                    document.querySelector('#birthday-input').value = `${ data[0]['birthday'] }`;
+                    document.querySelector('#birthday-input').value = `${ data[0]['birthday'].replace(/-/g, '/') }`;
                     document.querySelector('#email-input').value = `${ data[0]['email'] }`;
                 }
             } else {
@@ -127,6 +127,7 @@ function checkValues(username, name, email, birthday, pass, repeat_pass) {
     }
 
     // Comprobación de fecha
+    console.log(birthday);
     if (birthday != "" && !patrones['fecha'].test(birthday)) {
         document.querySelector("#birthday-edit").style.borderBottom = "1px solid red";
         document.querySelector('.alert-birthday').style.display = "block";

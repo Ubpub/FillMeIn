@@ -133,3 +133,64 @@ footer div {
     font-size: 0.7em;
     opacity: 80%;
 }
+
+/* #######################################
+ *                 RESPONSIVE
+ * ####################################### */
+@media(max-width: 640px) {
+
+    /* ------------ HEADER ------------ */
+    header {
+        grid-template-columns: 0.5fr 1fr 1fr;
+        padding-left: 0;
+        padding-right: 0;
+        height: 5em;
+    }
+    header .title {
+        display: flex;
+        justify-content: center;
+        margin-left: 0.5em;
+    }
+    header .element, header .element div {
+        margin: 0;
+        padding: 0;
+    }
+    header .element div {
+        font-size: 0.8em;
+    }
+    header h1 {
+        font-size: 1.3em;
+        padding: 0;
+        margin: 0;
+    }
+    header .user, header .user div {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ------------ FOOTER ------------ */
+    footer {
+        display: block;
+        min-height: 15em;
+        padding: 0;
+    }
+    footer div {
+        padding: 0.5em;
+    }
+    .about-footer, .quick-links-footer {
+        text-align: center;
+    }
+    .about-footer span {
+        font-size: 0.9em;
+    }
+    .about-footer div, .quick-links-footer {
+        font-size: 1em;
+    }
+    .about-footer span {
+        font-size: 0.8em;
+    }
+    .link-f {
+        font-size: 0.7em;
+        opacity: 80%;
+    }
+}

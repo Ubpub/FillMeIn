@@ -484,6 +484,11 @@ function getUser() {
                                         let icon_book = document.createElement('i');
                                         icon_book.classList.add('bi', 'bi-bookmark');
                                         icon_book.setAttribute('data-id', data_entry_item.id);
+                                        if (saved_entries_user.includes(icon_book.getAttribute('data-id'))) {
+                                            icon_book.classList.add('bi-bookmark-fill');
+                                        } else {
+                                            icon_book.classList.add('bi-bookmark');
+                                        }
 
                                         icon_book.addEventListener('click', () => {
                                             if (icon_book.classList.contains('bi-bookmark-fill')) {

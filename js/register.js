@@ -183,9 +183,9 @@ function checkValues(username, name, email, birthday, pass, repeat_pass, isProfe
         document.querySelector('.password-alert').textContent = "Password must be at least 6 characters long";
         document.querySelector('.password-alert').style.display = "block";
         valid = false;
-    } else if (!!patrones['pass'].test(pass)) {
+    } else if (!patrones['pass'].test(pass)) {
         document.querySelector("#user_pass").style.border = "1px solid red";
-        document.querySelector('.password-alert').textContent = "Password must contain special characters and caps";
+        document.querySelector('.password-alert').textContent = "Password must contain at least a capitalized letter";
         document.querySelector('.password-alert').style.display = "block";
         valid = false;
     } else {

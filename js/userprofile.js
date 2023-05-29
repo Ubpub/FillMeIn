@@ -223,7 +223,7 @@ function getMyUserInfo(user_follow, add, remove) {
         .then( data => {
             if (data[0] && add) {
                 let following = [];
-                if (data[0]['following'] != null && data[0]['following'].length > 0) {
+                if (data[0]['following'] != null && data[0]['following'] != 0 && data[0]['following'].length > 0) {
                     JSON.parse(data[0]['following']).forEach(item => {
                         following.push(item);
                     })
@@ -233,6 +233,7 @@ function getMyUserInfo(user_follow, add, remove) {
                 } else {
                     following = following.filter(item => item != user_follow);
                 }
+                console.log(following);
 
                 let user = {
                     'username': localStorage.getItem('username'),
@@ -267,7 +268,7 @@ function getMyUserInfo(user_follow, add, remove) {
 
             } else if (data[0] && !add) {
                 let following = data[0]['following'];
-                if (following != null) {
+                if (following != null && following != 0) {
                     JSON.parse(following).forEach(item => {
                         if (item == user_follow) {
                             document.querySelector('#follow-bt').classList.add('unfollow');
